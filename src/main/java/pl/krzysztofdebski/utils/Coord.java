@@ -20,6 +20,10 @@ public class Coord extends Pair<Integer, Integer> {
         return array[this.y()][this.x()];
     }
 
+    public Boolean valueIfInBounds(boolean[][] array) {
+        return inBounds(x(), y(), array) ? array[this.y()][this.x()] : null;
+    }
+
     public Character valueIfInBounds(char[][] array) {
         return inBounds(x(), y(), array) ? array[this.y()][this.x()] : null;
     }
@@ -55,5 +59,17 @@ public class Coord extends Pair<Integer, Integer> {
 
     public Direction distance(Coord other) {
         return new Direction(other.y() - y(), other.x() - x());
+    }
+
+    public static Coord find(char[][] chars, char c) {
+        for (int y = 0; y < chars.length; y++) {
+            char[] line = chars[y];
+            for (int x = 0; x < line.length; x++) {
+                if (line[x] == c) {
+                    return new Coord(y, x);
+                }
+            }
+        }
+        throw new RuntimeException("Couldn't find coord");
     }
 }

@@ -113,6 +113,33 @@ public class Utils {
         return result;
     }
 
+    public static List<char[][]> partitionByNewLinesToCharArray(List<String> lines) {
+        List<char[][]> result = new ArrayList<>();
+        List<String> current = new ArrayList<>();
+        for (String line : lines) {
+            if (line.isEmpty()) {
+                if (!current.isEmpty()) {
+                    char[][] c = new char[current.size()][current.getFirst().length()];
+                    for (int i = 0; i < current.size(); i++) {
+                        c[i] = current.get(i).toCharArray();
+                    }
+                    result.add(c);
+                }
+                current = new ArrayList<>();
+            } else {
+                current.add(line);
+            }
+        }
+        if (!current.isEmpty()) {
+            char[][] c = new char[current.size()][current.getFirst().length()];
+            for (int i = 0; i < current.size(); i++) {
+                c[i] = current.get(i).toCharArray();
+            }
+            result.add(c);
+        }
+        return result;
+    }
+
     public static long sumInts(int[] array) {
         long sum = 0;
         for (int value : array) {
